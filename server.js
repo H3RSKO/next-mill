@@ -1,7 +1,10 @@
-const db = require('./db/users')
+const db = require('./db/db')
 const express = require('express')
 const app = express();
-const User = require('./db/users')
+
+const path = require('path');
+const User = require('./db/user')
+
 
 const server = () => {
   app.use(express.json())
@@ -10,10 +13,17 @@ const server = () => {
 
 }
 
-
 app.get('/', async (req, res, next) => {
   try {
-    const users = await User.find({})
+    res.sendFile(path.join(__dirname + '/index.html'));
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.get('/user', async (req, res, next) => {
+  try {
+    const users = await User.findAll()
     res.json(users)
   } catch (error) {
     next(error)
