@@ -13,8 +13,8 @@ const server = () => {
 
 app.get('/', async (req, res, next) => {
   try {
-    const db = await User.findAll()
-    res.json(repo)
+    const users = await User.find({})
+    res.json(users)
   } catch (error) {
     next(error)
   }
